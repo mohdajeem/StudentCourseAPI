@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./server
+    ports:
+      - '5000:5000'
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/student-course-db
+      - JWT_SECRET=MoHdAjeEm
+    depends_on:
+      - mongo
+    volumes:
+      - ./server:/app
+    command: npm run dev
+
+  mongo:
+    image: mongo:6.0
+    container_name: student-course-mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - monog_data:/data/db
+
+volumes:
+  monog_data:
